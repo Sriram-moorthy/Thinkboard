@@ -13,13 +13,15 @@ const app = express();
 const __dirname = path.resolve();
 app.use(express.json());
 
-if(process.env.NODE_ENV !== 'production') {
-app.use(cors({
-    origin: 'http://localhost:5173', // Update with your frontend URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
-}
+const allowedOrigins = [ 'http://localhost:5173',  'https://thinkboard-j4tv.onrender.com'];
+app.use(cors({ origin: function (origin, callback) 
+    { if (!origin || allowedOrigins.includes(origin)) { 
+        callback(null, true); 
+    } 
+    else { callback(new Error('Not allowed by CORS')); 
+
+    } }, 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], allowedHeaders: ['Content-Type', 'Authorization'] }));
 app.use(rateLimiter);
 
 // API Routes
