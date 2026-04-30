@@ -11,7 +11,8 @@ const rateLimiter = async (req, res, next) => {
 
         next();
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Rate limiter error (failing open):", error.message);
+        next(); // Fail open — don't block requests if Redis is unavailable
     }
 };
 
