@@ -33,8 +33,8 @@ app.get('/favicon.ico', (req, res) => {
 // API Routes
 app.use('/api/notes', notesRoutes);
 
-// Health check route for root
-app.get('/', (req, res) => {
+// Health check route
+app.get('/api/health', (req, res) => {
     res.send('API is running');
 });
 
