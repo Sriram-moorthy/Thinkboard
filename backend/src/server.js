@@ -24,6 +24,12 @@ app.use(cors({ origin: function (origin, callback)
     methods: ['GET', 'POST', 'PUT', 'DELETE'], allowedHeaders: ['Content-Type', 'Authorization'] }));
 app.use(rateLimiter);
 
+
+// Serve favicon.ico from the frontend/public directory
+app.get('/favicon.ico', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/public/favicon.ico'));
+});
+
 // API Routes
 app.use('/api/notes', notesRoutes);
 
